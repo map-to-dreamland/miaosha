@@ -88,7 +88,7 @@ public class ItemServiceImpl implements ItemService {
         }).collect(Collectors.toList());
         return modelList;
     }
-
+    //商品详情
     @Override
     public ItemModel getItemById(Integer id) {
         ItemDO itemDO = itemDOMapper.selectByPrimaryKey(id);
@@ -97,5 +97,18 @@ public class ItemServiceImpl implements ItemService {
         }
         ItemStockDO itemStockDO = itemStockDOMapper.selectByItemId(id);
         return convertModelFromItem(itemDO,itemStockDO);
+    }
+    //库存扣减
+    @Override
+    public boolean decreaseStock(Integer itemId, Integer amount) throws BusinessException {
+        int affectedRow = itemStockDOMapper.decreaseStock(itemId,amount);
+        //更新库存成功 返回true
+        //更新库存失败 返回false
+        return affectedRow > 0;
+    }
+    //销量增加
+    @Override
+    public void increaseSales(Integer itemId, Integer amount) throws BusinessException {
+        itemDOMapper.increaseSales(itemId,amount);
     }
 }
