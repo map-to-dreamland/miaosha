@@ -11,8 +11,8 @@ import java.util.List;
 
 public class Mbg {
     public static void main(String[] args) throws Exception{
-        List<String> warnings = new ArrayList<String>();
-        boolean overwrite = true;
+        List<String> warnings = new ArrayList<>();
+        boolean overwrite = false;
         File configFile = new File("mbg.xml");
         ConfigurationParser cp = new ConfigurationParser(warnings);
         Configuration config = cp.parseConfiguration(configFile);

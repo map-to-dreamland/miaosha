@@ -62,8 +62,10 @@ public class UserController extends BaseController{
         userModel.setTelphone(telphone);
         userModel.setGender(gender);
         //因为加密后才向model封装，空字符串变成了加密字符串，service层的校验不起作用
+        if (StringUtils.isEmpty(password)) {
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR,"密码不能为空");
+        }
         userModel.setEncrptPassword(toMD5(password));
-        System.out.println(toMD5(password));
         userService.register(userModel);
         return CommonReturnType.create(null);
     }
@@ -89,7 +91,7 @@ public class UserController extends BaseController{
     public CommonReturnType getUser(@RequestParam(name = "id") Integer id) throws BusinessException {
         //调用service服务获取对应id的用户对象并返回给前端
         UserModel userModel = userService.getUserById(id);
-        //若是获取的对应用户信息不存再
+        //若是获取的对应用户信息不存在
         if (userModel == null) {
             throw new BusinessException(EmBusinessError.USER_NOT_EXIST);
         }

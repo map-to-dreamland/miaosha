@@ -1,16 +1,8 @@
 package com.wx.miaosha.dao;
 
 import com.wx.miaosha.dataobject.UserDO;
-import com.wx.miaosha.dataobject.UserDOExample;
-import java.util.List;
-
-import com.wx.miaosha.service.model.UserModel;
-import org.apache.ibatis.annotations.Param;
 
 public interface UserDOMapper {
-    long countByExample(UserDOExample example);
-
-    int deleteByExample(UserDOExample example);
 
     int deleteByPrimaryKey(Integer id);
 
@@ -18,13 +10,7 @@ public interface UserDOMapper {
 
     int insertSelective(UserDO record);
 
-    List<UserDO> selectByExample(UserDOExample example);
-
     UserDO selectByPrimaryKey(Integer id);
-
-    int updateByExampleSelective(@Param("record") UserDO record, @Param("example") UserDOExample example);
-
-    int updateByExample(@Param("record") UserDO record, @Param("example") UserDOExample example);
 
     int updateByPrimaryKeySelective(UserDO record);
 
